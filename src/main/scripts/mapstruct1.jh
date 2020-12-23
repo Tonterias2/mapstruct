@@ -1,0 +1,23 @@
+entity ChatRoom {
+    creationDate Instant required,
+    roomName String minlength(2) maxlength(50) required,
+    roomDescription String minlength(2) maxlength(250),
+    privateRoom Boolean,
+    image ImageBlob
+}
+
+// Set pagination options
+// paginate ChatMessage with infinite-scroll
+paginate ChatRoom with pagination
+
+// Use Data Transfert Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl // except , 
+
+// FILTERING:
+filter *
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

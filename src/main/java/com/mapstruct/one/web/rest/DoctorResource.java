@@ -3,12 +3,15 @@ package com.mapstruct.one.web.rest;
 import com.mapstruct.one.service.DoctorService;
 import com.mapstruct.one.web.rest.errors.BadRequestAlertException;
 import com.mapstruct.one.service.dto.DoctorDTO;
+import com.mapstruct.one.service.dto.CustomDoctorDTO;
 import com.mapstruct.one.service.dto.DoctorCriteria;
 import com.mapstruct.one.service.DoctorQueryService;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import io.micrometer.core.annotation.Timed;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -125,6 +128,21 @@ public class DoctorResource {
     public ResponseEntity<DoctorDTO> getDoctor(@PathVariable Long id) {
         log.debug("REST request to get Doctor : {}", id);
         Optional<DoctorDTO> doctorDTO = doctorService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(doctorDTO);
+    }
+
+    
+    /**
+     * {@code GET  /doctors/:id} : get the "id" doctor.
+     *
+     * @param id the id of the doctorDTO to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the doctorDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/doctors/{id}/doctor")
+    @Timed
+    public ResponseEntity<CustomDoctorDTO> getDoctorCustomized(@PathVariable Long id) {
+        log.debug("REST request to get Doctor : {}", id);
+        Optional<CustomDoctorDTO> doctorDTO = doctorService.findOneCompletelyCustomized(id);
         return ResponseUtil.wrapOrNotFound(doctorDTO);
     }
 

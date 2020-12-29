@@ -1,19 +1,21 @@
 package com.mapstruct.one.service.impl;
 
-import com.mapstruct.one.service.DoctorService;
+import java.util.Optional;
+
 import com.mapstruct.one.domain.Doctor;
 import com.mapstruct.one.repository.DoctorRepository;
+import com.mapstruct.one.service.DoctorService;
+import com.mapstruct.one.service.dto.CustomDoctorDTO;
 import com.mapstruct.one.service.dto.DoctorDTO;
+import com.mapstruct.one.service.mapper.CustomCompleteMapper;
 import com.mapstruct.one.service.mapper.DoctorMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * Service Implementation for managing {@link Doctor}.
@@ -28,9 +30,12 @@ public class DoctorServiceImpl implements DoctorService {
 
     private final DoctorMapper doctorMapper;
 
-    public DoctorServiceImpl(DoctorRepository doctorRepository, DoctorMapper doctorMapper) {
+    private final CustomCompleteMapper customCompleteMapper;
+
+    public DoctorServiceImpl(DoctorRepository doctorRepository, DoctorMapper doctorMapper, CustomCompleteMapper customCompleteMapper) {
         this.doctorRepository = doctorRepository;
         this.doctorMapper = doctorMapper;
+        this.customCompleteMapper = customCompleteMapper;
     }
 
     @Override
@@ -49,13 +54,19 @@ public class DoctorServiceImpl implements DoctorService {
             .map(doctorMapper::toDto);
     }
 
-
     @Override
     @Transactional(readOnly = true)
     public Optional<DoctorDTO> findOne(Long id) {
         log.debug("Request to get Doctor : {}", id);
         return doctorRepository.findById(id)
             .map(doctorMapper::toDto);
+    }
+    
+    @Transactional(readOnly = true)
+    public Optional<CustomDoctorDTO> findOneCompletelyCustomized(Long id) {
+        log.debug("Request to get Doctor : {}", id);
+        return doctorRepository.findById(id)
+            .map(customCompleteMapper::toDto);
     }
 
     @Override

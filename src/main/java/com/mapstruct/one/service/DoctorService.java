@@ -1,5 +1,6 @@
 package com.mapstruct.one.service;
 
+import com.mapstruct.one.service.dto.CustomDoctorDTO;
 import com.mapstruct.one.service.dto.DoctorDTO;
 
 import org.springframework.data.domain.Page;
@@ -36,6 +37,15 @@ public interface DoctorService {
      * @return the entity.
      */
     Optional<DoctorDTO> findOne(Long id);
+
+    /**
+     * Get the "id" doctor.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
+    Optional<CustomDoctorDTO> findOneCompletelyCustomized(Long id);
+
 
     /**
      * Delete the "id" doctor.

@@ -1,23 +1,30 @@
-entity ChatRoom {
-    creationDate Instant required,
-    roomName String minlength(2) maxlength(50) required,
-    roomDescription String minlength(2) maxlength(250),
-    privateRoom Boolean,
-    image ImageBlob
+
+entity Doctor {
+	name String
 }
 
-// Set pagination options
+entity Education {
+    degreeName String
+    institute String
+    yearOfPassing Integer
+}
+
+// relationship OneToMany {
+// 	Race{participant(id)} to Participant{race(id)}
+// }
+
+// SET PAGINATION OPTIONS:
+paginate all with pagination
 // paginate ChatMessage with infinite-scroll
-paginate ChatRoom with pagination
+// paginate all with infinite-scroll
 
-// Use Data Transfert Objects (DTO)
-dto * with mapstruct
+// SET SERVICE OPTIONS:
+service all with serviceImpl
+//service all with serviceClass
 
-// Set service options to all except few
-service all with serviceImpl // except , 
+// DTO:
+dto all with mapstruct
 
 // FILTERING:
 filter *
 
-// Set an angular suffix
-// angularSuffix * with mySuffix

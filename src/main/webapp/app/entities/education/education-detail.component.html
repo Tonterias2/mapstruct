@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="education">
+            <h2><span>Education</span> {{ education.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Degree Name</span></dt>
+                <dd>
+                    <span>{{ education.degreeName }}</span>
+                </dd>
+                <dt><span>Institute</span></dt>
+                <dd>
+                    <span>{{ education.institute }}</span>
+                </dd>
+                <dt><span>Year Of Passing</span></dt>
+                <dd>
+                    <span>{{ education.yearOfPassing }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/education', education.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -48,6 +48,8 @@ public class CacheConfiguration {
             createCache(cm, com.mapstruct.one.domain.User.class.getName());
             createCache(cm, com.mapstruct.one.domain.Authority.class.getName());
             createCache(cm, com.mapstruct.one.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.mapstruct.one.domain.Doctor.class.getName());
+            createCache(cm, com.mapstruct.one.domain.Education.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
